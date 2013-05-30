@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char mem[30000] = {0};
-char *ptr = mem;
+int mem[30000] = {0};
+int *ptr = mem;
 
 void interpretBuffer(char *bytes, long len);
 
@@ -44,31 +44,14 @@ void interpretBuffer(char *bytes, long len) {
     while (index < len) {
     	c = bytes[index];
     	switch (c) {
-    		case '<':
-    		ptr--;
-    		break;
-    		case '>':
-    		ptr++;
-    		break;
-    		case '+':
-    		(*ptr)++;;
-    		break;
-    		case '-':
-    		(*ptr)--;
-    		break;
-    		case '.':
-    		putchar(*ptr);
-    		break;
-    		case ',':
-    		*ptr = getchar();
-    		break;
-    		case '[':
-    		if (*ptr == 0)
-    			while (bytes[++index] != ']');
-    		break;
-    		case ']':
-			while (bytes[index--] != '[');
-    		break;
+    		case '<': ptr--; break;
+    		case '>': ptr++; break;
+    		case '+': (*ptr)++; break;
+    		case '-': (*ptr)--; break;
+    		case '.': putchar(*ptr); break;
+    		case ',': *ptr = getchar(); break;
+    		case '[': if (*ptr == 0) while (bytes[++index] != ']'); break; 
+    		case ']': while (bytes[index--] != '['); break;
     	}
     	index++;
 	}
