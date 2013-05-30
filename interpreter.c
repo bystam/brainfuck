@@ -43,41 +43,41 @@ void interpretBuffer(char *bytes, long len) {
 	unsigned int index = 0;
 	int loopDepth;
 	char ignore;
-    while (index < len) {
-    	c = bytes[index];
-    	switch (c) {
-    		case '<': ptr--; break;
-    		case '>': ptr++; break;
-    		case '+': (*ptr)++; break;
-    		case '-': (*ptr)--; break;
-    		case '.': putchar(*ptr); break;
-    		case ',': *ptr = getchar(); break; 
-    		case ']': 
+	while (index < len) {
+		c = bytes[index];
+		switch (c) {
+			case '<': ptr--; break;
+			case '>': ptr++; break;
+			case '+': (*ptr)++; break;
+			case '-': (*ptr)--; break;
+			case '.': putchar(*ptr); break;
+			case ',': *ptr = getchar(); break; 
+			case ']': 
 				loopDepth = 1;
 				index--;
 				while (ignore = bytes[index--]) {
-    				if (ignore == ']')
-    					loopDepth++;
-    				else if (ignore == '[')
-    					loopDepth--;
-    				if (loopDepth == 0)
-    					break;
-    			}
+					if (ignore == ']')
+						loopDepth++;
+					else if (ignore == '[')
+						loopDepth--;
+					if (loopDepth == 0)
+						break;
+				}
 				break;
-    		case '[': 
-    			if (*ptr == 0) {
-    				loopDepth = 1;
-    				while (ignore = bytes[++index]) {
-	    				if (ignore == '[')
-	    					loopDepth++;
-	    				else if (ignore == ']')
-	    					loopDepth--;
-	    				if (loopDepth == 0)
-	    					break;
-    				}
-    			}
-    			break;
-    	}
-    	index++;
+			case '[': 
+				if (*ptr == 0) {
+					loopDepth = 1;
+					while (ignore = bytes[++index]) {
+						if (ignore == '[')
+							loopDepth++;
+						else if (ignore == ']')
+							loopDepth--;
+						if (loopDepth == 0)
+							break;
+					}
+				}
+				break;
+		}
+		index++;
 	}
 }
