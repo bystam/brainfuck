@@ -18,7 +18,7 @@ int main (int argc, char *argv[]) {
 			bytes[len++] = c;
 			if (len == size) {
 				size *= 2;
-				realloc(bytes, size);
+				bytes = realloc(bytes, size);
 			}
 		}
 	} else { // has input file name, use first one
@@ -55,7 +55,7 @@ void interpretBuffer(char *bytes, long len) {
 			case ']': 
 				loopDepth = 1;
 				index--;
-				while (ignore = bytes[index--]) {
+				while ((ignore = bytes[index--])) {
 					if (ignore == ']')
 						loopDepth++;
 					else if (ignore == '[')
@@ -67,7 +67,7 @@ void interpretBuffer(char *bytes, long len) {
 			case '[': 
 				if (*ptr == 0) {
 					loopDepth = 1;
-					while (ignore = bytes[++index]) {
+					while ((ignore = bytes[++index])) {
 						if (ignore == '[')
 							loopDepth++;
 						else if (ignore == ']')
